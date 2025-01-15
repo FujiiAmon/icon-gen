@@ -2,7 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 
-const TypewriterText: React.FC<{ text: string }> = ({ text }) => {
+type TypewriterTextProps = {
+    text: string;
+};
+
+const TypewriterText: React.FC<TypewriterTextProps> = ({ text }) => {
     
 
     return (
