@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import os
+from dotenv import load_dotenv
 
 class Item(BaseModel):
     name: str
@@ -17,5 +19,6 @@ async def root():
 # async def create_item(item: Item):
 #     return
 
-
-#jfdoghfdsoigg
+load_dotenv()
+api_key = os.getenv("VITE_API_KEY")
+print(api_key)
