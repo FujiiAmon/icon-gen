@@ -2,6 +2,7 @@ import React from "react"
 
 // PropでIconを受け取るようにする
 
+
 export type ButtonProps = {
     name?: string,
     onClick: () => void,
