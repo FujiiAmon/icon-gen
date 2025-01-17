@@ -76,7 +76,7 @@ const TestPage2: React.FC = () => {
       <div className="absolute inset-0 bg-[url('https://source.unsplash.com/1920x1080/?stars,galaxy')] bg-cover opacity-50"></div>
 
       {/* Overlay */}
-      <div className="relative z-10 ">
+      <div className="relative z-10">
         <header className="bg-gradient-to-r from-indigo-900 to-purple-900 py-6 shadow-lg">
           <div className="container mx-auto text-center">
             <h1 className="text-4xl font-bold tracking-wide">Iconify Galaxy</h1>

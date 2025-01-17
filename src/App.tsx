@@ -8,6 +8,7 @@ import APIRequestTest from "./Components/APIRequestTest.tsx";
 
 // import TestPage from "./pages/TestPage2.tsx";
 import TestPage from "./pages/TestPage.tsx";
+import TestPage2 from "./pages/TestPage2.tsx";
 
 function App() {
     return (

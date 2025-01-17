@@ -39,7 +39,9 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({ isLoading, children }
     <div>
       {isLoading
         ? React.Children.map(children, (child) => renderSkeleton(child)) // 子要素をスケルトン化
-        : children}
+        : <div className="animate-fade">
+            {children}
+            </div>}
     </div>
   );
 };

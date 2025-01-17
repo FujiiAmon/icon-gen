@@ -1,5 +1,5 @@
 import React , {useRef, useEffect} from "react";
-import InputArea from "./InputArea";
+import InputArea2 from "./InputArea2";
 import Button from "./Button";
 import LoadingSleleton from "./LoadingSkeleton";
 import DownloadButton from "./DownloadButton";
@@ -12,12 +12,24 @@ const TestPage: React.FC = () => {
     const generateButtonRef = useRef<HTMLDivElement>(null);
     const resultRef = useRef<HTMLDivElement>(null);
 
-    
+    const [isGenerated, setGenerated] = React.useState(false);
     const [isLoading, setLoading] = React.useState(true);
+    const [inputText, setInputText] = React.useState<string>("");
 
     
     const GenerateImage = () => {
         // APIを叩き画像を受け取る処理
+        setGenerated(true);
+        setLoading(true);
+        try{
+
+        }catch(error){
+
+        }finally{
+            // setGenerated(true);
+            console.log(inputText);
+            setTimeout(() => {setLoading(false)}, 1000);
+        }
     }
     
     // 受け取ったrefの位置に自動スクロールする関数
@@ -29,48 +41,62 @@ const TestPage: React.FC = () => {
 
     // 画像のLoadingをシミュレートしています
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 4000)
-        
+      
     }, [])
 
     return (<>
-        <div className="flex flex-col items-center justify-center space-y-10">
+        <div className="h-screen w-full bg-violet-50 overflow-hidden bg-gradient-to-b from-gray-900 to-black text-white" >
+            <div className="w-full ">
+
             {/*header*/}
-            <header className="my-8">
-                <div className="container mx-auto text-center">
+            <div className="relative z-10">
+
+            <header className="mb-20 bg-gradient-to-r from-indigo-900 to-purple-900 py-6 shadow-lg">
+                <div className="container mx-auto text-center ">
                     <h1 className="text-4xl font-bold tracking-wide">Icon Generater</h1>
                 </div>
                 </header>
+            </div>
             {/*main content*/}
-            <main className="container mx-auto space-y-20 relative mt-8 flex flex-col items-center justify-center">
+            <main className="container mx-auto space-y-20 flex flex-col max-w-lg">
+                
+                <div>
+                    {/* description テキスト折り返し*/}
+                    <p className="text-lg text-center font-small break-words">
+                        This site is a tool that generates your images and icons.
+                        Please answer the following questions to generate your image.
+                    </p>
+                </div>
                 
                 {/* input area */}
-                <div ref={inputRef}>
-                    <InputArea question="What is your name?" onClick={() => {}}/>
+                <div ref={inputRef} >
+                    <InputArea2 question="What is your favorite animal?" onChange={setInputText}/>
                 </div> 
-
-                <div ref={generateButtonRef}>
-                    <Button name="Gennerate" onClick={() => {}}/>
+                
+                {/* generate button */}
+                <div ref={generateButtonRef} className="flex flex-col items-center">
+                    <Button name="Generate" onClick={GenerateImage}/>
                 </div>
 
                 {/* result */}    
-                <div ref={resultRef}>
+                <div ref={resultRef} className="space-y-4 flex flex-col items-center justify-center">
                     <LoadingSleleton isLoading={isLoading}>
                         {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
-                        <img src={sampleURL} alt="random image" className="w-24 h-24 rounded-full"/>
+                        <img src={sampleURL} alt="random image" className="w-36 h-36 rounded-full"/>
                         
                     </LoadingSleleton>
+
+                    <DownloadButton src="https://source.unsplash.com/random/800x600"/>
                 </div>
                 
                 {/* <ImageViewer src="https://source.unsplash.com/random/800x600" alt="random image"/> */}
 
-                <DownloadButton src="https://source.unsplash.com/random/800x600"/>
+                
              
             </main>
 
 
+            </div>
 
         </div>
     </>)
