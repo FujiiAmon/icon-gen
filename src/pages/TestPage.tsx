@@ -7,7 +7,7 @@ import DownloadButton from "./DownloadButton";
 const sampleURL = "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg";
 
 const TestPage: React.FC = () => {
-
+    
     const inputRef = useRef<HTMLDivElement>(null);
     const generateButtonRef = useRef<HTMLDivElement>(null);
     const resultRef = useRef<HTMLDivElement>(null);
@@ -21,7 +21,7 @@ const TestPage: React.FC = () => {
       };
 
     return (<>
-        <div className="flex flex-col items-center justify-center space-y-80">
+        <div className="flex flex-col items-center justify-center space-y-10">
             <div ref={inputRef}>
                 <InputArea question="What is your name?" onClick={(url:string)=> scrollToNext(generateButtonRef)}/>
             </div> 

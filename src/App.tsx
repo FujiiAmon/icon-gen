@@ -6,13 +6,14 @@ import "./App.css";
 import GeneratePages from "./Components/GeneratePage.tsx";
 import APIRequestTest from "./Components/APIRequestTest.tsx";
 
+// import TestPage from "./pages/TestPage2.tsx";
 import TestPage from "./pages/TestPage.tsx";
 
 function App() {
     return (
         <>
             {/* <GeneratePages /> */}
-            <TestPage />
+            <TestPage/>
         </>
     );
 }
