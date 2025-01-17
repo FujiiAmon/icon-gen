@@ -3,7 +3,7 @@ import json
 import os 
 import openai
 import base64
-#a
+
 with open("src/api/api_key.json") as f:
     api_key = json.load(f)["API_KEY"]
 
