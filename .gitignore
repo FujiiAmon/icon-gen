@@ -27,4 +27,4 @@ dist-ssr
 *.sln
 *.sw?
 
-*/api_key.json
+api/api_key.json
