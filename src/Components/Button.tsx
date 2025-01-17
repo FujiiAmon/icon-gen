@@ -1,4 +1,4 @@
-
+// 汎用ボタンコンポーネント
 import React from 'react'
 
 const Button: React.FC = () => {
