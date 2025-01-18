@@ -15,6 +15,7 @@ type DownloadButtonProps = {
 const DownloadButton: React.FC<DownloadButtonProps> = ({src}) => {
   
     const downloadFile = async (src: string) => {
+      console.log("download file url", src)
         const response = await fetch(src);
         if (!response.ok) {
             throw new Error("Failed to fetch the file");
