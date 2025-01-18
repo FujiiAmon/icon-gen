@@ -15,7 +15,7 @@ const InputArea: React.FC<InputAreaProps> = ({question, onClick}) => {
     }
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 w-full">
             <h2 className="text-xl font-bold text-gray-800 ">{question}</h2>
             <input
                 type="text"

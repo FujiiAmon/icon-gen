@@ -1,12 +1,14 @@
 import json
-import urllib
-import os
-from PIL import Image, ImageDraw
-import io
-from urllib.request import urlopen
+import os 
 import openai
+from openai import OpenAI
+from PIL import Image, ImageDraw
 
-# APIキーを読み込む
+from urllib.request import urlopen
+
+import time
+
+
 with open("api/api_key.json") as f:
     api_key = json.load(f)["API_KEY"]
 
