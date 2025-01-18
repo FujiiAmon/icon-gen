@@ -5,8 +5,6 @@ import Button from "./Button";
 import LoadingSkeleton from "./LoadingSkeleton";
 import DownloadButton from "./DownloadButton";
 
-const API_URL = import.meta.env.VITE_API_URL + "/generate";
-
 const sampleImages: string[] = [
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
@@ -14,7 +12,7 @@ const sampleImages: string[] = [
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
-]
+];
 const API_URL = import.meta.env.VITE_API_URL;
 const sampleURL =
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg";
@@ -38,7 +36,6 @@ const TestPage: React.FC = () => {
     const [Images, setImages] = useState<string[]>(sampleImages);
 
     const GenerateImage = () => {
-
         // APIを叩き画像を受け取る処理
         setGenerated(true);
         setLoading(true);
@@ -141,7 +138,6 @@ const TestPage: React.FC = () => {
                             </p>
                         </div>
 
-
                         {/* input area */}
                         <div ref={inputRef}>
                             <InputArea2
@@ -206,9 +202,8 @@ const TestPage: React.FC = () => {
                     </main>
                 </div>
             </div>
-
-        </div>
-    </>)
-}
+        </>
+    );
+};
 
 export default TestPage;
