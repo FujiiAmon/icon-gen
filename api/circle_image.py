@@ -14,6 +14,7 @@ def circle_img(img):
     img[mask==0] = [0,0,0]
     return img
 
-
+def rectangle_img(img):
+    print("a")
 #cv2.imwrite("api/c.jpg",img)
 
