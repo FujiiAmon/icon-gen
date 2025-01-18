@@ -3,8 +3,10 @@ import json
 import os 
 import openai
 import base64
-#a
-with open("src/api/api_key.json") as f:
+
+import cv2
+
+with open("api/api_key.json") as f:
     api_key = json.load(f)["API_KEY"]
 
 # APIキーを設定
@@ -22,7 +24,6 @@ def icon_create(youser_prompt):
     quality="standard",
     n=1
     )
-    image_bytes = base64.b64decode(response.data[0].b64_json)#返り値をどうにかしたい
-    return image_bytes
+    return response.model_dump_json().data[0]["url"]
 
-print(icon_create("りんご"))
+print(icon_create("a cat"))
