@@ -17,12 +17,12 @@ const TestPage: React.FC = () => {
     const [isLoading, setLoading] = React.useState(true);
     const [inputText, setInputText] = React.useState<string>("");
 
-    const GenerateImage = async () => {
+    const GenerateImage = () => {
         // APIを叩き画像を受け取る処理
         setGenerated(true);
         setLoading(true);
         try {
-            await fetch(API_URL, {
+            fetch(API_URL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
