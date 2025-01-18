@@ -54,15 +54,6 @@ const TestPage: React.FC = () => {
                     setLoading(false);
                     console.log(data);
                 });
-            fetch(API_URL + "/download", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ url: imageURL }),
-            }).then((res) => {
-                console.log(res);
-            });
         } catch (error) {
             console.error(error);
             setLoading(false);
@@ -74,6 +65,18 @@ const TestPage: React.FC = () => {
             // }, 1000);
         }
     };
+
+    useEffect(() => {
+        fetch(API_URL + "/download", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ url: imageURL }),
+        }).then((res) => {
+            console.log(res);
+        });
+    }, [imageURL]);
 
     const handleScroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
         const container = event.currentTarget;
