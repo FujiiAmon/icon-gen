@@ -4,7 +4,7 @@ import Button from "./Button";
 import LoadingSleleton from "./LoadingSkeleton";
 import DownloadButton from "./DownloadButton";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL + "/generate";
 const sampleURL =
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg";
 
