@@ -31,6 +31,10 @@ const TestPage: React.FC = () => {
     const [isGenerated, setGenerated] = React.useState(false);
     const [isLoading, setLoading] = React.useState(true);
     const [inputText, setInputText] = React.useState<string>("");
+    const [imageURL, setImageURL] = React.useState<string | undefined>(
+        undefined
+    );
+
 
 
     const [currentImage, setCurrentImage] = useState<string>(sampleImages[0])
@@ -38,13 +42,16 @@ const TestPage: React.FC = () => {
 
     const [Images, setImages] = useState<string[]>(sampleImages);
 
-    const GenerateImage = async () => {
+
+
+
+    const GenerateImage = () => {
 
         // APIを叩き画像を受け取る処理
         setGenerated(true);
         setLoading(true);
         try {
-            await fetch(API_URL, {
+            fetch(API_URL + "/generate", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -52,15 +59,21 @@ const TestPage: React.FC = () => {
                 body: JSON.stringify({ prompt: inputText }),
             })
                 .then((res) => res.json())
-                .then((data) => console.log(data));
+                .then((data) => {
+                    setImageURL(data);
+                    setImages([data]);
+                    setLoading(false);
+                    console.log(data);
+                });
         } catch (error) {
             console.error(error);
+            setLoading(false);
         } finally {
             // setGenerated(true);
-            console.log(inputText);
-            setTimeout(() => {
-                setLoading(false);
-            }, 1000);
+            // console.log(inputText);
+            // setTimeout(() => {
+            //     setLoading(false);
+            // }, 1000);
         }
 
     }
@@ -164,6 +177,7 @@ const TestPage: React.FC = () => {
                     
                         {/* <div className="snap-center snap-always">
                             <LoadingSleleton isLoading={isLoading}>
+
                                     {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
                                     {/* <img src={sampleURL} alt="random image" className="w-36 h-36 rounded-full"/> */}
                             {/* </LoadingSleleton> */}
@@ -182,7 +196,10 @@ const TestPage: React.FC = () => {
                        
                     </div>
 
-                    <DownloadButton src={Images[currentImageIndex]}/>
+
+                    {/* <DownloadButton src={Images[currentImageIndex]}/>
+                     */}
+                     <DownloadButton src={"https://oaidalleapiprodscus.blob.core.windows.net/private/org-jmuLTnCHURAEXVY1VByta3oE/user-l4chAGXPSMWW0R0qnGlk3lmI/img-6PT8VsIhjI2923OEBl60ftyT.png?st=2025-01-18T06%3A54%3A50Z&se=2025-01-18T08%3A54%3A50Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-01-18T00%3A24%3A40Z&ske=2025-01-19T00%3A24%3A40Z&sks=b&skv=2024-08-04&sig=dLzub4OHROxpjvRQXp01pxdq7YTKEI4I961UccfkDbk%3D"}/>
                 </div>
                 
                 {/* <ImageViewer src="https://source.unsplash.com/random/800x600" alt="random image"/> */}
