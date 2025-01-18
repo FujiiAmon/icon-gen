@@ -18,9 +18,10 @@ async def root():
 
 @app.post("/generate")
 async def create_icon(prompt: Prompt):
-    with open("api/api_key.json") as f:
-        api_key = json.load(f)["API_KEY"]
-    os.environ["OPENAI_API_KEY"] = api_key
+    # デプロイ先でAPIキーを環境変数に設定したので、以下のコードは不要
+    # with open("api/api_key.json") as f:
+    #     api_key = json.load(f)["API_KEY"]
+    # os.environ["OPENAI_API_KEY"] = api_key
     openai.api_key = os.environ["OPENAI_API_KEY"]
 
     client = OpenAI()
