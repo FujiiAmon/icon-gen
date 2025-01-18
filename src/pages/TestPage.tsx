@@ -16,6 +16,9 @@ const TestPage: React.FC = () => {
     const [isGenerated, setGenerated] = React.useState(false);
     const [isLoading, setLoading] = React.useState(true);
     const [inputText, setInputText] = React.useState<string>("");
+    const [imageURL, setImageURL] = React.useState<string | undefined>(
+        undefined
+    );
 
     const GenerateImage = () => {
         // APIを叩き画像を受け取る処理
@@ -30,15 +33,20 @@ const TestPage: React.FC = () => {
                 body: JSON.stringify({ prompt: inputText }),
             })
                 .then((res) => res.json())
-                .then((data) => console.log(data));
+                .then((data) => {
+                    setImageURL(data);
+                    setLoading(false);
+                    console.log(data);
+                });
         } catch (error) {
             console.error(error);
+            setLoading(false);
         } finally {
             // setGenerated(true);
-            console.log(inputText);
-            setTimeout(() => {
-                setLoading(false);
-            }, 1000);
+            // console.log(inputText);
+            // setTimeout(() => {
+            //     setLoading(false);
+            // }, 1000);
         }
     };
 
@@ -99,13 +107,13 @@ const TestPage: React.FC = () => {
                             <LoadingSleleton isLoading={isLoading}>
                                 {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
                                 <img
-                                    src={sampleURL}
+                                    src={imageURL || sampleURL}
                                     alt="random image"
                                     className="w-36 h-36 rounded-full"
                                 />
                             </LoadingSleleton>
 
-                            <DownloadButton src="https://source.unsplash.com/random/800x600" />
+                            <DownloadButton src={imageURL || sampleURL} />
                         </div>
 
                         {/* <ImageViewer src="https://source.unsplash.com/random/800x600" alt="random image"/> */}
