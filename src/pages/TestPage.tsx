@@ -6,6 +6,7 @@ import InputArea2 from "./InputArea2";
 import Button from "./Button";
 import LoadingSkeleton from "./LoadingSkeleton";
 import DownloadButton from "./DownloadButton";
+import RankingPage from "./RankingPage";
 
 
 const sampleImages: string[] = [
@@ -112,7 +113,7 @@ const TestPage: React.FC = () => {
     useEffect(() => {
         const handleWheel = (event: WheelEvent) => {
           if (scrollContainerRef.current) {
-            // event.preventDefault(); 
+            event.preventDefault(); 
             console.log(Math.round(event.deltaY / 10));
             scrollContainerRef.current.scrollLeft += Math.round(event.deltaY / 10);//Math.round(event.deltaY / 3); // 縦スクロールを横スクロールに変換
           }
@@ -129,8 +130,8 @@ const TestPage: React.FC = () => {
     return (
  
         <>
-            <div className="h-screen w-full bg-violet-50 overflow-hidden bg-gradient-to-b from-gray-900 to-black text-white">
-                <div className="w-full ">
+            <div className="h-screen w-full bg-violet-50 overflow-y-auto bg-gradient-to-b from-gray-900 to-black text-white">
+                <div className="w-full">
                     {/*header*/}
                     <div className="relative z-10">
                         <header className="mb-20 bg-gradient-to-r from-indigo-900 to-purple-900 py-6 shadow-lg">
@@ -142,7 +143,7 @@ const TestPage: React.FC = () => {
                         </header>
                     </div>
                     {/*main content*/}
-                    <main className="container mx-auto space-y-20 flex flex-col max-w-lg">
+                    <main className="container mx-auto space-y-20 flex flex-col">
                         <div>
                             {/* description テキスト折り返し*/}
                             <p className="text-lg text-center font-small break-words">
@@ -152,13 +153,14 @@ const TestPage: React.FC = () => {
                             </p>
                         </div>
 
+                    <div className="border-2 border-violet-800 rounded-lg p-8 space-y-20 ">
 
                         {/* input area */}
                         <div ref={inputRef}>
                             <InputArea2
                                 question="What is your favorite animal?"
                                 onChange={setInputText}
-                            />
+                                />
                         </div>
 
                         {/* generate button */}
@@ -173,36 +175,49 @@ const TestPage: React.FC = () => {
 
                 {/* result */}    
                 <div ref={resultRef} className="space-y-4 flex flex-col items-center justify-center">
-                    <div ref={scrollContainerRef}className="flex overflow-x-auto space-x-10 w-full snap-x snap-mandatory"  onScroll={handleScroll}>
+                    <div ref={scrollContainerRef} className="flex item-center justify-center overflow-x-auto space-x-10 w-full snap-x snap-mandatory"  onScroll={handleScroll}>
                     
                         {/* <div className="snap-center snap-always">
                             <LoadingSleleton isLoading={isLoading}>
-
-                                    {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
+                            
+                            {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
                                     {/* <img src={sampleURL} alt="random image" className="w-36 h-36 rounded-full"/> */}
                             {/* </LoadingSleleton> */}
                         {/* </div> */} 
                         {/* duplicate image */}
 
-                        {Images.map((item, index) => (
+                        {/* {Images.map((item, index) => (
                             <div key={index} className={`snap-center shrink-0 ${currentImageIndex === index ? "scale-100" : "scale-75"}`}>
-                                <LoadingSkeleton isLoading={isLoading}>
-                           
-                                    <img src={item} alt="random image" className="w-36 h-36 rounded-full object-cover "/>
+                            <LoadingSkeleton isLoading={isLoading}>
+                            
+                            <img src={item} alt="random image" className="w-36 h-36 rounded-full object-cover "/>
                             </LoadingSkeleton>
-                     
+                            
                             </div>
-                        ))}
+                            ))} */}
+
+                        <div  className={`snap-center shrink-0`}>
+                            <LoadingSkeleton isLoading={isLoading}>
+                    
+                                <img src={Images[0]} alt="random image" className="w-36 h-36 rounded-full object-cover "/>
+                            </LoadingSkeleton>
+                                            
+                        </div>
                        
                     </div>
 
 
                     <DownloadButton src={Images[currentImageIndex]}/>
                 </div>
+                </div>
                 
                 {/* <ImageViewer src="https://source.unsplash.com/random/800x600" alt="random image"/> */}
 
-                
+                <div className="border-2 border-violet-800 rounded-lg p-8 space-y-20">
+                    <div className="text-center text-2xl font-bold">Ranking</div>
+                    <RankingPage/>
+
+                </div>
              
             </main>
 

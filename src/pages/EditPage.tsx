@@ -13,26 +13,7 @@ type EditPageProps = {
 const sizes = ["256", "512", "1024"]
 const shapeTypes = ["circle", "rectangle"]
 
-type IconData = {
-    url: string,
-    x: number,
-    y: number
-}
 
-const generateRandomIcons = (numIcons: number): IconData[] => {
-    const icons: IconData[] = [];
-    for (let i = 0; i < numIcons; i++) {
-        const x = Math.random(); // 0から1のランダムな値
-        const y = Math.random(); // 0から1のランダムな値
-        icons.push({
-            url: "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg", // ダミーの画像URL
-            x,
-            y,
-        });
-    }
-    return icons;
-};
-const sampleIconsData = generateRandomIcons(100)
 
 const EditPage: React.FC<EditPageProps> = ({src}) => {
     // 何も編集していない状態の画像
@@ -92,17 +73,11 @@ const EditPage: React.FC<EditPageProps> = ({src}) => {
             
     
             {/* Example Edit Controls */}
-            <div className="space-y-6">
+            <div className="space-y-6 mt-4">
 
-                <div className="relative mb-6">
-                    <label className="inline-flex items-center cursor-pointer space-x-10">Dot</label>
-                    {/* <span className="ms-3 text-sm text-gray-700">Dot</span> */}
-                        <input type="checkbox" value="" className="sr-only peer" onChange={() =>setIsDot(isDot => !isDot)}/>
-                        <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                        
-                </div>
+                
 
-                {/* Brightness Control */}
+                {/* Saturation Control */}
                 <div className="relative mb-6">
                 <label htmlFor="saturation" className="block text-sm text-gray-700">Saturation</label>
                 <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">0</span>
@@ -139,7 +114,7 @@ const EditPage: React.FC<EditPageProps> = ({src}) => {
                     </div>
     
                 </div>
-                {/* Contrast Control */}
+                {/* ShapeType Control */}
                 <div>
                     <label htmlFor="shapeType" className="block text-sm text-gray-700">ShapeType</label>
                     <div className="flex space-x-0">
@@ -158,6 +133,15 @@ const EditPage: React.FC<EditPageProps> = ({src}) => {
                         ))}
                     </div>
                 </div>
+
+                <div className="relative mb-6">
+                    <label htmlFor="bot" className="block text-sm text-gray-700">Dot</label>
+                    <label className="inline-flex items-center space-x-10 cursor-pointer">
+                    {/* <span className="ms-3 text-sm text-gray-700">Dot</span> */}
+                        <input type="checkbox" value="" className="sr-only peer " onChange={() =>setIsDot(isDot => !isDot)}/>
+                        <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    </label>   
+                </div>
     
                 
                 {/* DownLoad */}
@@ -167,7 +151,7 @@ const EditPage: React.FC<EditPageProps> = ({src}) => {
             </div>
             </div>
 
-            <IconWorld icons={sampleIconsData}/>
+          
         </div>
         );
     
