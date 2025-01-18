@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 
-img=cv2.imread('api/resize_dog.jpg')
-img_a = cv2.resize(img,(300,300))
+#img=cv2.imread('api/resize_dog.jpg')
+#img_a = cv2.resize(img,(300,300))
 
 def circle_img(img):
     x = 150
