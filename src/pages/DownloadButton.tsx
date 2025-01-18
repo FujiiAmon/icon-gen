@@ -16,6 +16,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({src}) => {
   
     const downloadFile = async (src: string) => {
       console.log("download file url", src)
+      try{
         const response = await fetch(src);
         if (!response.ok) {
             throw new Error("Failed to fetch the file");
@@ -28,8 +29,12 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({src}) => {
         // aタグを使ってダウンロードする
         const anchor = document.createElement("a");
         anchor.href = downloadUrl;
-        anchor.download = "sample.png";
+        anchor.download = "icon.png";
         anchor.click();
+
+      }catch(error){
+        console.log("Failed to downlaod file", error);
+      }
     }
 
     return (
