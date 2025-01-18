@@ -12,7 +12,9 @@ dist
 dist-ssr
 *.local
 
+.env
 */api.json
+*/api_key.json
 
 # Editor directories and files
 .vscode/*
@@ -25,8 +27,5 @@ dist-ssr
 *.sln
 *.sw?
 
-*/api.json
-
-*/api.json
-*/api_key.json
-*/.env
+api/api_key.json
+venv
