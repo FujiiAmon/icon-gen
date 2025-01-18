@@ -28,3 +28,4 @@ dist-ssr
 *.sw?
 
 api/api_key.json
+venv
