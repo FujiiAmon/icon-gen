@@ -54,6 +54,15 @@ const TestPage: React.FC = () => {
                     setLoading(false);
                     console.log(data);
                 });
+            fetch(API_URL + "/download", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ url: imageURL }),
+            }).then((res) => {
+                console.log(res);
+            });
         } catch (error) {
             console.error(error);
             setLoading(false);
