@@ -1,9 +1,18 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+
 import InputArea2 from "./InputArea2";
 import Button from "./Button";
-import LoadingSleleton from "./LoadingSkeleton";
+import LoadingSkeleton from "./LoadingSkeleton";
 import DownloadButton from "./DownloadButton";
 
+const sampleImages: string[] = [
+    "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
+    "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
+    "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
+    "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
+    "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
+    "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
+];
 const API_URL = import.meta.env.VITE_API_URL;
 const sampleURL =
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg";
@@ -12,6 +21,7 @@ const TestPage: React.FC = () => {
     const inputRef = useRef<HTMLDivElement>(null);
     const generateButtonRef = useRef<HTMLDivElement>(null);
     const resultRef = useRef<HTMLDivElement>(null);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     const [isGenerated, setGenerated] = React.useState(false);
     const [isLoading, setLoading] = React.useState(true);
@@ -20,12 +30,17 @@ const TestPage: React.FC = () => {
         undefined
     );
 
+    const [currentImage, setCurrentImage] = useState<string>(sampleImages[0]);
+    const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
+
+    const [Images, setImages] = useState<string[]>(sampleImages);
+
     const GenerateImage = () => {
         // APIを叩き画像を受け取る処理
         setGenerated(true);
         setLoading(true);
         try {
-            fetch(API_URL, {
+            fetch(API_URL + "/generate", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,6 +50,7 @@ const TestPage: React.FC = () => {
                 .then((res) => res.json())
                 .then((data) => {
                     setImageURL(data);
+                    setImages([data]);
                     setLoading(false);
                     console.log(data);
                 });
@@ -50,6 +66,26 @@ const TestPage: React.FC = () => {
         }
     };
 
+    const handleScroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
+        const container = event.currentTarget;
+        const scrollLeft = container.scrollLeft;
+        const width = container.scrollWidth / Images.length;
+        const newIndex = Math.round(scrollLeft / width) + 1;
+        console.log("width", width);
+        console.log("scrollleft", scrollLeft);
+        console.log("scroll", width);
+        console.log("newIndex", newIndex);
+
+        setCurrentImageIndex(newIndex);
+        if (scrollLeft + container.clientWidth >= container.scrollWidth) {
+            // 最初の要素を追加
+            setImages((prevImages) => [
+                ...prevImages,
+                Images[currentImageIndex - 2],
+            ]);
+        }
+    };
+
     // 受け取ったrefの位置に自動スクロールする関数
     const scrollToNext = (ref: React.RefObject<HTMLDivElement>) => {
         if (ref.current) {
@@ -58,7 +94,24 @@ const TestPage: React.FC = () => {
     };
 
     // 画像のLoadingをシミュレートしています
-    useEffect(() => {}, []);
+    useEffect(() => {
+        const handleWheel = (event: WheelEvent) => {
+            if (scrollContainerRef.current) {
+                // event.preventDefault();
+                console.log(Math.round(event.deltaY / 10));
+                scrollContainerRef.current.scrollLeft += Math.round(
+                    event.deltaY / 10
+                ); //Math.round(event.deltaY / 3); // 縦スクロールを横スクロールに変換
+            }
+        };
+
+        const container = scrollContainerRef.current;
+        container?.addEventListener("wheel", handleWheel);
+
+        return () => {
+            container?.removeEventListener("wheel", handleWheel);
+        };
+    }, []);
 
     return (
         <>
@@ -104,16 +157,45 @@ const TestPage: React.FC = () => {
                         <div
                             ref={resultRef}
                             className="space-y-4 flex flex-col items-center justify-center">
+                            <div
+                                ref={scrollContainerRef}
+                                className="flex overflow-x-auto space-x-10 w-full snap-x snap-mandatory"
+                                onScroll={handleScroll}>
+                                {/* <div className="snap-center snap-always">
                             <LoadingSleleton isLoading={isLoading}>
-                                {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
-                                <img
-                                    src={imageURL || sampleURL}
-                                    alt="random image"
-                                    className="w-36 h-36 rounded-full"
-                                />
-                            </LoadingSleleton>
 
-                            <DownloadButton src={imageURL || sampleURL} />
+                                    {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
+                                {/* <img src={sampleURL} alt="random image" className="w-36 h-36 rounded-full"/> */}
+                                {/* </LoadingSleleton> */}
+                                {/* </div> */}
+                                {/* duplicate image */}
+
+                                {Images.map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className={`snap-center shrink-0 ${
+                                            currentImageIndex === index
+                                                ? "scale-100"
+                                                : "scale-75"
+                                        }`}>
+                                        <LoadingSkeleton isLoading={isLoading}>
+                                            <img
+                                                src={item}
+                                                alt="random image"
+                                                className="w-36 h-36 rounded-full object-cover "
+                                            />
+                                        </LoadingSkeleton>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* <DownloadButton src={Images[currentImageIndex]}/>
+                             */}
+                            <DownloadButton
+                                src={
+                                    "https://oaidalleapiprodscus.blob.core.windows.net/private/org-jmuLTnCHURAEXVY1VByta3oE/user-l4chAGXPSMWW0R0qnGlk3lmI/img-6PT8VsIhjI2923OEBl60ftyT.png?st=2025-01-18T06%3A54%3A50Z&se=2025-01-18T08%3A54%3A50Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-01-18T00%3A24%3A40Z&ske=2025-01-19T00%3A24%3A40Z&sks=b&skv=2024-08-04&sig=dLzub4OHROxpjvRQXp01pxdq7YTKEI4I961UccfkDbk%3D"
+                                }
+                            />
                         </div>
 
                         {/* <ImageViewer src="https://source.unsplash.com/random/800x600" alt="random image"/> */}
