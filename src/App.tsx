@@ -12,11 +12,15 @@ import TestPage2 from "./pages/TestPage2.tsx";
 import EditPage from "./pages/EditPage.tsx";
 import ExplorePage from "./pages/ExplorePage.tsx";
 import RankingPage from "./pages/RankingPage.tsx";
+
+// import { Routes, Route } from "react-router-dom";
+
 function App() {
     return (
         <>
-            {/* <GeneratePages /> */}
             <TestPage/>
+            
+            {/* <GeneratePages /> */}
             {/* <EditPage src="https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg"/> */}
             {/* <ExplorePage/> */}
             {/* <RankingPage/> */}

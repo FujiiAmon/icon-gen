@@ -7,6 +7,7 @@ import Button from "./Button";
 import LoadingSkeleton from "./LoadingSkeleton";
 import DownloadButton from "./DownloadButton";
 import RankingPage from "./RankingPage";
+import EditButton from "./EditButton";
 
 
 const sampleImages: string[] = [
@@ -197,17 +198,27 @@ const TestPage: React.FC = () => {
                             ))} */}
 
                         <div  className={`snap-center shrink-0`}>
-                            <LoadingSkeleton isLoading={isLoading}>
+                            {isGenerated ? (
+                                <LoadingSkeleton isLoading={isLoading}>
                     
                                 <img src={Images[0]} alt="random image" className="w-36 h-36 rounded-full object-cover "/>
                             </LoadingSkeleton>
+                            ):(
+                                
+                                <div className="w-36 h-36 bg-gray-900 rounded-full">
+                                </div>
+                            )}
+                            
                                             
                         </div>
                        
                     </div>
 
-
+                    <div className="flex gap-2">
+                    
                     <DownloadButton src={Images[currentImageIndex]}/>
+                    <EditButton src={Images[currentImageIndex]} onClick={()=>{}}/>
+                    </div>
                 </div>
                 </div>
                 
