@@ -3,9 +3,10 @@ import DownloadButton from "./DownloadButton";
 import Button from "./Button";
 import IconWorld from "./Scatter";
 
+import { useLocation } from 'react-router-dom';
 
 type EditPageProps = {
-    src: string,
+    defaultSrc?: string,
 
 }
 
@@ -15,8 +16,10 @@ const shapeTypes = ["circle", "rectangle"]
 
 
 
-const EditPage: React.FC<EditPageProps> = ({src}) => {
+const EditPage: React.FC<EditPageProps> = ({defaultSrc}) => {
     // 何も編集していない状態の画像
+    const location = useLocation();
+    const src = location.state ? location.state.src: "";
     const [imageUrl, setImageUrl] = useState<string>(src)
     // currentImageUrlを更新することで、編集した画像をプレビューする
     const [currentImageUrl, setCurrentImageUrl] = useState<string>(src)
