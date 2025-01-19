@@ -13,12 +13,16 @@ import EditPage from "./pages/EditPage.tsx";
 import ExplorePage from "./pages/ExplorePage.tsx";
 import RankingPage from "./pages/RankingPage.tsx";
 
-// import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
     return (
         <>
-            <TestPage/>
+        <Routes>
+            <Route path="/" element={<TestPage />} />
+            <Route path="/edit" element={<EditPage />} />
+            {/* <TestPage/> */}
+        </Routes>
             
             {/* <GeneratePages /> */}
             {/* <EditPage src="https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg"/> */}
