@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import DownloadButton from "./DownloadButton";
+import Button from "./Button";
+import IconWorld from "./Scatter";
 
 
 type EditPageProps = {
@@ -6,14 +9,16 @@ type EditPageProps = {
 
 }
 
+// 型定義したほうがいいかも
 const sizes = ["256", "512", "1024"]
 const shapeTypes = ["circle", "rectangle"]
 
 
-const EditPage: React.FC<EditPageProps> = ({src}) => {
-    
-    const [imageUrl, setImageUrl] = useState<string>(src)
 
+const EditPage: React.FC<EditPageProps> = ({src}) => {
+    // 何も編集していない状態の画像
+    const [imageUrl, setImageUrl] = useState<string>(src)
+    // currentImageUrlを更新することで、編集した画像をプレビューする
     const [currentImageUrl, setCurrentImageUrl] = useState<string>(src)
     const [saturation, SetSaturation] = useState<number>(100);
     const [selectedShapeType, setSelectedShapeType] = useState<string>("circle");
@@ -28,11 +33,11 @@ const EditPage: React.FC<EditPageProps> = ({src}) => {
     }
 
     const handleGrayScaleEffect = async () => {
-
+        // api request
     }
 
     const handleDotEffect = async () => {
-
+        // api request
     }
 
     const handleSizeChange = async (size: string) => {
@@ -42,7 +47,11 @@ const EditPage: React.FC<EditPageProps> = ({src}) => {
     }
 
     const handleCropChange = async () => {
+        // api request
+    }
 
+    const handleResetButtonClick = async () => {
+        setCurrentImageUrl(imageUrl);
     }
    
     return (
@@ -58,19 +67,17 @@ const EditPage: React.FC<EditPageProps> = ({src}) => {
     
             {/* Right Side: Edit UI */}
             <div className="flex flex-col space-y-4">
-            <h2 className="text-xl font-semibold">Edit Image</h2>
+        
+            <Button name="reset" onClick={handleResetButtonClick}></Button>
             
-            <label className="inline-flex items-center cursor-pointer space-x-10">
-            <span className="ms-3 text-sm text-gray-700">Dot</span>
-                <input type="checkbox" value="" className="sr-only peer" onChange={() =>setIsDot(isDot => !isDot)}/>
-                <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                
-            </label>
+            
     
             {/* Example Edit Controls */}
-            <div className="space-y-4">
+            <div className="space-y-6 mt-4">
 
-                {/* Brightness Control */}
+                
+
+                {/* Saturation Control */}
                 <div className="relative mb-6">
                 <label htmlFor="saturation" className="block text-sm text-gray-700">Saturation</label>
                 <span className="text-sm text-gray-500 dark:text-gray-400 absolute start-0 -bottom-6">0</span>
@@ -107,7 +114,7 @@ const EditPage: React.FC<EditPageProps> = ({src}) => {
                     </div>
     
                 </div>
-                {/* Contrast Control */}
+                {/* ShapeType Control */}
                 <div>
                     <label htmlFor="shapeType" className="block text-sm text-gray-700">ShapeType</label>
                     <div className="flex space-x-0">
@@ -126,16 +133,25 @@ const EditPage: React.FC<EditPageProps> = ({src}) => {
                         ))}
                     </div>
                 </div>
+
+                <div className="relative mb-6">
+                    <label htmlFor="bot" className="block text-sm text-gray-700">Dot</label>
+                    <label className="inline-flex items-center space-x-10 cursor-pointer">
+                    {/* <span className="ms-3 text-sm text-gray-700">Dot</span> */}
+                        <input type="checkbox" value="" className="sr-only peer " onChange={() =>setIsDot(isDot => !isDot)}/>
+                        <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    </label>   
+                </div>
     
                 
                 {/* DownLoad */}
                 <div>
-                <button className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700">
-                    Save Changes
-                </button>
+                    <DownloadButton src={currentImageUrl}></DownloadButton>
                 </div>
             </div>
             </div>
+
+          
         </div>
         );
     

@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-    width: 1px; /* スクロールバーの幅を細く設定 */
+    width: 2px; /* スクロールバーの幅を細く設定 */
     height: 1px; /* 横スクロール用 */
   }
   
   ::-webkit-scrollbar-thumb {
     background-color: white; /* サムを白に */
-    border-radius: 9999px; /* 丸みを持たせる */
+    border-radius: 1px; /* 丸みを持たせる */
   }
   
   ::-webkit-scrollbar-track {

@@ -4,6 +4,9 @@ import InputArea2 from "./InputArea2";
 import Button from "./Button";
 import LoadingSkeleton from "./LoadingSkeleton";
 import DownloadButton from "./DownloadButton";
+import RankingPage from "./RankingPage";
+import EditButton from "./EditButton";
+
 
 const sampleImages: string[] = [
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
@@ -108,13 +111,11 @@ const TestPage: React.FC = () => {
     // 画像のLoadingをシミュレートしています
     useEffect(() => {
         const handleWheel = (event: WheelEvent) => {
-            if (scrollContainerRef.current) {
-                // event.preventDefault();
-                console.log(Math.round(event.deltaY / 10));
-                scrollContainerRef.current.scrollLeft += Math.round(
-                    event.deltaY / 10
-                ); //Math.round(event.deltaY / 3); // 縦スクロールを横スクロールに変換
-            }
+          if (scrollContainerRef.current) {
+            event.preventDefault(); 
+            console.log(Math.round(event.deltaY / 10));
+            scrollContainerRef.current.scrollLeft += Math.round(event.deltaY / 10);//Math.round(event.deltaY / 3); // 縦スクロールを横スクロールに変換
+          }
         };
 
         const container = scrollContainerRef.current;
@@ -127,20 +128,20 @@ const TestPage: React.FC = () => {
 
     return (
         <>
-            <div className="h-screen w-full bg-violet-50 overflow-hidden bg-gradient-to-b from-gray-900 to-black text-white">
-                <div className="w-full ">
+            <div className="h-screen w-full bg-violet-50 overflow-y-auto bg-gradient-to-b from-gray-900 to-black text-white">
+                <div className="w-full">
                     {/*header*/}
                     <div className="relative z-10">
                         <header className="mb-20 bg-gradient-to-r from-indigo-900 to-purple-900 py-6 shadow-lg">
                             <div className="container mx-auto text-center ">
                                 <h1 className="text-4xl font-bold tracking-wide">
-                                    Icon Generater
+                                    my Icon
                                 </h1>
                             </div>
                         </header>
                     </div>
                     {/*main content*/}
-                    <main className="container mx-auto space-y-20 flex flex-col max-w-lg">
+                    <main className="container mx-auto space-y-20 flex flex-col">
                         <div>
                             {/* description テキスト折り返し*/}
                             <p className="text-lg text-center font-small break-words">
@@ -150,69 +151,85 @@ const TestPage: React.FC = () => {
                             </p>
                         </div>
 
+                    <div className="border-2 border-violet-800 rounded-lg p-8 space-y-20 ">
+
                         {/* input area */}
                         <div ref={inputRef}>
                             <InputArea2
                                 question="What is your favorite animal?"
                                 onChange={setInputText}
-                            />
+                                />
                         </div>
 
                         {/* generate button */}
                         <div
                             ref={generateButtonRef}
                             className="flex flex-col items-center">
-                            <Button name="Generate" onClick={GenerateImage} />
+                            <Button disabled={!inputText} name="Generate" onClick={GenerateImage} />
                         </div>
 
-                        {/* result */}
-                        <div
-                            ref={resultRef}
-                            className="space-y-4 flex flex-col items-center justify-center">
-                            <div
-                                ref={scrollContainerRef}
-                                className="flex overflow-x-auto space-x-10 w-full snap-x snap-mandatory"
-                                onScroll={handleScroll}>
-                                {/* <div className="snap-center snap-always">
+ 
+
+
+                {/* result */}    
+                <div ref={resultRef} className="space-y-4 flex flex-col items-center justify-center">
+                    <div ref={scrollContainerRef} className="flex item-center justify-center overflow-x-auto space-x-10 w-full snap-x snap-mandatory"  onScroll={handleScroll}>
+                    
+                        {/* <div className="snap-center snap-always">
                             <LoadingSleleton isLoading={isLoading}>
+                            
+                            {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
+                                    {/* <img src={sampleURL} alt="random image" className="w-36 h-36 rounded-full"/> */}
+                            {/* </LoadingSleleton> */}
+                        {/* </div> */} 
+                        {/* duplicate image */}
 
-                                    {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
-                                {/* <img src={sampleURL} alt="random image" className="w-36 h-36 rounded-full"/> */}
-                                {/* </LoadingSleleton> */}
-                                {/* </div> */}
-                                {/* duplicate image */}
-
-                                {Images.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className={`snap-center shrink-0 ${
-                                            currentImageIndex === index
-                                                ? "scale-100"
-                                                : "scale-75"
-                                        }`}>
-                                        <LoadingSkeleton isLoading={isLoading}>
-                                            <img
-                                                src={item}
-                                                alt="random image"
-                                                className="w-36 h-36 rounded-full object-cover "
-                                            />
-                                        </LoadingSkeleton>
-                                    </div>
-                                ))}
+                        {/* {Images.map((item, index) => (
+                            <div key={index} className={`snap-center shrink-0 ${currentImageIndex === index ? "scale-100" : "scale-75"}`}>
+                            <LoadingSkeleton isLoading={isLoading}>
+                            
+                            <img src={item} alt="random image" className="w-36 h-36 rounded-full object-cover "/>
+                            </LoadingSkeleton>
+                            
                             </div>
+                            ))} */}
 
-                            {/* <DownloadButton src={Images[currentImageIndex]}/>
-                             */}
-                            <DownloadButton
-                                src={
-                                    "https://oaidalleapiprodscus.blob.core.windows.net/private/org-jmuLTnCHURAEXVY1VByta3oE/user-l4chAGXPSMWW0R0qnGlk3lmI/img-6PT8VsIhjI2923OEBl60ftyT.png?st=2025-01-18T06%3A54%3A50Z&se=2025-01-18T08%3A54%3A50Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-01-18T00%3A24%3A40Z&ske=2025-01-19T00%3A24%3A40Z&sks=b&skv=2024-08-04&sig=dLzub4OHROxpjvRQXp01pxdq7YTKEI4I961UccfkDbk%3D"
-                                }
-                            />
+                        <div  className={`snap-center shrink-0`}>
+                            {isGenerated ? (
+                                <LoadingSkeleton isLoading={isLoading}>
+                    
+                                <img src={Images[0]} alt="random image" className="w-36 h-36 rounded-full object-cover "/>
+                            </LoadingSkeleton>
+                            ):(
+                                
+                                <div className="w-36 h-36 bg-gray-900 rounded-full">
+                                </div>
+                            )}
+                            
+                                            
                         </div>
+                       
+                    </div>
 
-                        {/* <ImageViewer src="https://source.unsplash.com/random/800x600" alt="random image"/> */}
-                    </main>
+                    <div className="flex gap-2">
+                    
+                    <DownloadButton src={Images[currentImageIndex]}/>
+                    <EditButton src={Images[currentImageIndex]} onClick={()=>{}}/>
+                    </div>
                 </div>
+                </div>
+                
+                {/* <ImageViewer src="https://source.unsplash.com/random/800x600" alt="random image"/> */}
+
+                <div className="border-2 border-violet-800 rounded-lg p-8 space-y-20">
+                    <div className="text-center text-2xl font-bold">Ranking</div>
+                    <RankingPage/>
+
+                </div>
+             
+            </main>
+
+
             </div>
         </>
     );

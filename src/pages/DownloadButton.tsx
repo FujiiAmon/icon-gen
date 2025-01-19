@@ -15,6 +15,8 @@ type DownloadButtonProps = {
 const DownloadButton: React.FC<DownloadButtonProps> = ({src}) => {
   
     const downloadFile = async (src: string) => {
+      console.log("download file url", src)
+      try{
         const response = await fetch(src);
         if (!response.ok) {
             throw new Error("Failed to fetch the file");
@@ -27,12 +29,16 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({src}) => {
         // aタグを使ってダウンロードする
         const anchor = document.createElement("a");
         anchor.href = downloadUrl;
-        anchor.download = "sample.png";
+        anchor.download = "icon.png";
         anchor.click();
+
+      }catch(error){
+        console.log("Failed to downlaod file", error);
+      }
     }
 
     return (
-      <button className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 active:scale-105 active:bg-blue-700 transition duration-100" onClick={() => downloadFile(src)}>
+      <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-violet-600 to-blue-600 text-white rounded-full hover:bg-blue-600 active:scale-105 active:bg-blue-700 transition duration-100" onClick={() => downloadFile(src)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
