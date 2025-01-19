@@ -238,6 +238,9 @@ const TestPage: React.FC = () => {
                                         src={Images[currentImageIndex]}
                                         onClick={() => {}}
                                     />
+                                    {/* <EditButton
+                                        src={imagePath!}
+                                        onClick={() => {}}/> */}
                                 </div>
                             </div>
                         </div>

@@ -12,6 +12,7 @@ type EditPageProps = {
 // 型定義したほうがいいかも
 const sizes = ["256", "512", "1024"];
 const shapeTypes = ["circle", "rectangle"];
+const API_URL = import.meta.env.VITE_API_URL;
 
 const API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -19,6 +20,7 @@ const EditPage: React.FC<EditPageProps> = ({ defaultSrc }) => {
     // 何も編集していない状態の画像
     const location = useLocation();
     const src = location.state ? location.state.src : "";
+
     const [imageUrl, setImageUrl] = useState<string>(src);
     // currentImageUrlを更新することで、編集した画像をプレビューする
     const [currentImageUrl, setCurrentImageUrl] = useState<string>(src);
@@ -48,7 +50,24 @@ const EditPage: React.FC<EditPageProps> = ({ defaultSrc }) => {
     };
 
     const handleGrayScaleEffect = async () => {
-        // api request
+        try {
+            const response = await fetch(API_URL + "/gray", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ image: imageUrl }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to edit for grayscale effect");
+            }
+
+            // const data = await response.json();
+            // setCurrentImageUrl(data.url);
+        } catch (error) {
+            console.log("Failed to fetch the file", error);
+        }
     };
 
     const handleDotEffect = async () => {
@@ -90,6 +109,12 @@ const EditPage: React.FC<EditPageProps> = ({ defaultSrc }) => {
 
                 {/* Example Edit Controls */}
                 <div className="space-y-6 mt-4">
+                    <div>
+                        <Button
+                            name="GrayScale"
+                            onClick={handleGrayScaleEffect}></Button>
+                    </div>
+
                     {/* Saturation Control */}
                     <div className="relative mb-6">
                         <label
@@ -136,51 +161,75 @@ const EditPage: React.FC<EditPageProps> = ({ defaultSrc }) => {
                                 </button>
                             ))}
                         </div>
-                    </div>
-                    {/* ShapeType Control */}
-                    <div>
-                        <label
-                            htmlFor="shapeType"
-                            className="block text-sm text-gray-700">
-                            ShapeType
-                        </label>
-                        <div className="flex space-x-0">
-                            {shapeTypes.map((item) => (
-                                <button
-                                    key={item}
-                                    className={`px-4 py-2 border ${
-                                        selectedSize === item
-                                            ? "bg-blue-500 text-white"
-                                            : "bg-gray-200 text-gray-700"
-                                    } transition-colors duration-200`}
-                                    onClick={() => handleSizeChange(item)}>
-                                    {item}
-                                </button>
-                            ))}
+
+                        {/* size*/}
+                        <div className="relative mb-6">
+                            <label
+                                htmlFor="size"
+                                className="block text-sm text-gray-700">
+                                Size
+                            </label>
+                            <div className="flex space-x-0">
+                                {sizes.map((size) => (
+                                    <button
+                                        key={size}
+                                        className={`px-4 py-2 border ${
+                                            selectedSize === size
+                                                ? "bg-blue-500 text-white"
+                                                : "bg-gray-200 text-gray-700"
+                                        } transition-colors duration-200`}
+                                        onClick={() => handleSizeChange(size)}>
+                                        {size}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                        {/* ShapeType Control */}
+                        <div>
+                            <label
+                                htmlFor="shapeType"
+                                className="block text-sm text-gray-700">
+                                ShapeType
+                            </label>
+                            <div className="flex space-x-0">
+                                {shapeTypes.map((item) => (
+                                    <button
+                                        key={item}
+                                        className={`px-4 py-2 border ${
+                                            selectedSize === item
+                                                ? "bg-blue-500 text-white"
+                                                : "bg-gray-200 text-gray-700"
+                                        } transition-colors duration-200`}
+                                        onClick={() => handleSizeChange(item)}>
+                                        {item}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
 
-                    <div className="relative mb-6">
-                        <label
-                            htmlFor="bot"
-                            className="block text-sm text-gray-700">
-                            Dot
-                        </label>
-                        <label className="inline-flex items-center space-x-10 cursor-pointer">
-                            {/* <span className="ms-3 text-sm text-gray-700">Dot</span> */}
-                            <input
-                                type="checkbox"
-                                value=""
-                                className="sr-only peer "
-                                onChange={() => setIsDot((isDot) => !isDot)}
-                            />
-                            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                        </label>
-                    </div>
+                        <div className="relative mb-6">
+                            <label
+                                htmlFor="bot"
+                                className="block text-sm text-gray-700">
+                                Dot
+                            </label>
+                            <label className="inline-flex items-center space-x-10 cursor-pointer">
+                                {/* <span className="ms-3 text-sm text-gray-700">Dot</span> */}
+                                <input
+                                    type="checkbox"
+                                    value=""
+                                    className="sr-only peer "
+                                    onChange={() => setIsDot((isDot) => !isDot)}
+                                />
+                                <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
 
-                    {/* DownLoad */}
-                    <div>
-                        <DownloadButton src={currentImageUrl}></DownloadButton>
+                        {/* DownLoad */}
+                        <div>
+                            <DownloadButton
+                                src={currentImageUrl}></DownloadButton>
+                        </div>
                     </div>
                 </div>
             </div>
