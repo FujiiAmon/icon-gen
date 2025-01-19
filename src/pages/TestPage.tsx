@@ -7,7 +7,6 @@ import DownloadButton from "./DownloadButton";
 import RankingPage from "./RankingPage";
 import EditButton from "./EditButton";
 
-
 const sampleImages: string[] = [
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
     "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg",
@@ -111,11 +110,13 @@ const TestPage: React.FC = () => {
     // 画像のLoadingをシミュレートしています
     useEffect(() => {
         const handleWheel = (event: WheelEvent) => {
-          if (scrollContainerRef.current) {
-            event.preventDefault(); 
-            console.log(Math.round(event.deltaY / 10));
-            scrollContainerRef.current.scrollLeft += Math.round(event.deltaY / 10);//Math.round(event.deltaY / 3); // 縦スクロールを横スクロールに変換
-          }
+            if (scrollContainerRef.current) {
+                event.preventDefault();
+                console.log(Math.round(event.deltaY / 10));
+                scrollContainerRef.current.scrollLeft += Math.round(
+                    event.deltaY / 10
+                ); //Math.round(event.deltaY / 3); // 縦スクロールを横スクロールに変換
+            }
         };
 
         const container = scrollContainerRef.current;
@@ -151,40 +152,44 @@ const TestPage: React.FC = () => {
                             </p>
                         </div>
 
-                    <div className="border-2 border-violet-800 rounded-lg p-8 space-y-20 ">
-
-                        {/* input area */}
-                        <div ref={inputRef}>
-                            <InputArea2
-                                question="What is your favorite animal?"
-                                onChange={setInputText}
+                        <div className="border-2 border-violet-800 rounded-lg p-8 space-y-20 ">
+                            {/* input area */}
+                            <div ref={inputRef}>
+                                <InputArea2
+                                    question="What is your favorite animal?"
+                                    onChange={setInputText}
                                 />
-                        </div>
+                            </div>
 
-                        {/* generate button */}
-                        <div
-                            ref={generateButtonRef}
-                            className="flex flex-col items-center">
-                            <Button disabled={!inputText} name="Generate" onClick={GenerateImage} />
-                        </div>
+                            {/* generate button */}
+                            <div
+                                ref={generateButtonRef}
+                                className="flex flex-col items-center">
+                                <Button
+                                    disabled={!inputText}
+                                    name="Generate"
+                                    onClick={GenerateImage}
+                                />
+                            </div>
 
- 
-
-
-                {/* result */}    
-                <div ref={resultRef} className="space-y-4 flex flex-col items-center justify-center">
-                    <div ref={scrollContainerRef} className="flex item-center justify-center overflow-x-auto space-x-10 w-full snap-x snap-mandatory"  onScroll={handleScroll}>
-                    
-                        {/* <div className="snap-center snap-always">
+                            {/* result */}
+                            <div
+                                ref={resultRef}
+                                className="space-y-4 flex flex-col items-center justify-center">
+                                <div
+                                    ref={scrollContainerRef}
+                                    className="flex item-center justify-center overflow-x-auto space-x-10 w-full snap-x snap-mandatory"
+                                    onScroll={handleScroll}>
+                                    {/* <div className="snap-center snap-always">
                             <LoadingSleleton isLoading={isLoading}>
                             
                             {/* <div className="w-24 h-24 bg-gray-300 rounded-full"></div> */}
                                     {/* <img src={sampleURL} alt="random image" className="w-36 h-36 rounded-full"/> */}
-                            {/* </LoadingSleleton> */}
-                        {/* </div> */} 
-                        {/* duplicate image */}
+                                    {/* </LoadingSleleton> */}
+                                    {/* </div> */}
+                                    {/* duplicate image */}
 
-                        {/* {Images.map((item, index) => (
+                                    {/* {Images.map((item, index) => (
                             <div key={index} className={`snap-center shrink-0 ${currentImageIndex === index ? "scale-100" : "scale-75"}`}>
                             <LoadingSkeleton isLoading={isLoading}>
                             
@@ -194,42 +199,44 @@ const TestPage: React.FC = () => {
                             </div>
                             ))} */}
 
-                        <div  className={`snap-center shrink-0`}>
-                            {isGenerated ? (
-                                <LoadingSkeleton isLoading={isLoading}>
-                    
-                                <img src={Images[0]} alt="random image" className="w-36 h-36 rounded-full object-cover "/>
-                            </LoadingSkeleton>
-                            ):(
-                                
-                                <div className="w-36 h-36 bg-gray-900 rounded-full">
+                                    <div className={`snap-center shrink-0`}>
+                                        {isGenerated ? (
+                                            <LoadingSkeleton
+                                                isLoading={isLoading}>
+                                                <img
+                                                    src={Images[0]}
+                                                    alt="random image"
+                                                    className="w-36 h-36 rounded-full object-cover "
+                                                />
+                                            </LoadingSkeleton>
+                                        ) : (
+                                            <div className="w-36 h-36 bg-gray-900 rounded-full"></div>
+                                        )}
+                                    </div>
                                 </div>
-                            )}
-                            
-                                            
+
+                                <div className="flex gap-2">
+                                    <DownloadButton
+                                        src={Images[currentImageIndex]}
+                                    />
+                                    <EditButton
+                                        src={Images[currentImageIndex]}
+                                        onClick={() => {}}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                       
-                    </div>
 
-                    <div className="flex gap-2">
-                    
-                    <DownloadButton src={Images[currentImageIndex]}/>
-                    <EditButton src={Images[currentImageIndex]} onClick={()=>{}}/>
-                    </div>
+                        {/* <ImageViewer src="https://source.unsplash.com/random/800x600" alt="random image"/> */}
+
+                        <div className="border-2 border-violet-800 rounded-lg p-8 space-y-20">
+                            <div className="text-center text-2xl font-bold">
+                                Ranking
+                            </div>
+                            <RankingPage />
+                        </div>
+                    </main>
                 </div>
-                </div>
-                
-                {/* <ImageViewer src="https://source.unsplash.com/random/800x600" alt="random image"/> */}
-
-                <div className="border-2 border-violet-800 rounded-lg p-8 space-y-20">
-                    <div className="text-center text-2xl font-bold">Ranking</div>
-                    <RankingPage/>
-
-                </div>
-             
-            </main>
-
-
             </div>
         </>
     );
