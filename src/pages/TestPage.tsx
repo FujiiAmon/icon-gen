@@ -31,6 +31,9 @@ const TestPage: React.FC = () => {
     const [imageURL, setImageURL] = React.useState<string | undefined>(
         undefined
     );
+    const [imagePath, setImagePath] = React.useState<string | undefined>(
+        undefined
+    );
 
     const [currentImage, setCurrentImage] = useState<string>(sampleImages[0]);
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -77,6 +80,7 @@ const TestPage: React.FC = () => {
             body: JSON.stringify({ url: imageURL }),
         }).then((res) => {
             console.log(res);
+            setImagePath(res.path); // public/xxx.png
         });
     }, [imageURL]);
 
