@@ -40,6 +40,12 @@ const sampleIcons = ["https://images.unsplash.com/photo-1708738743926-4e2413fd42
     "https://images.unsplash.com/photo-1535083783855-76ae62b2914e?q=80&w=1635&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1541689221361-ad95003448dc?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://plus.unsplash.com/premium_photo-1665952050057-49931a9c1f3b?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1486578077620-8a022ddd481f?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1589656966895-2f33e7653819?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1539613119332-934546db1e0e?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1539613119332-934546db1e0e?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+
 
 ]
 
@@ -83,7 +89,7 @@ const RankingPage: React.FC = () => {
                             <div key={index} className={`first:scale-100 scale-75 snap-center shrink-0 p-4`}>
                                 <LoadingSkeleton isLoading={isLoading}>
                            
-                                    <img src={item.src} alt="random image" className="w-24 h-24 rounded-full object-cover "/>
+                                    <img src={item.src} alt="random image" className="w-24 h-24 rounded-full object-cover hover:scale-105 transition focus:"/>
                             </LoadingSkeleton>
 
                             {index === 0 && (

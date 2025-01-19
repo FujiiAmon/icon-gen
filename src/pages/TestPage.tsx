@@ -138,7 +138,7 @@ const TestPage: React.FC = () => {
                         <header className="mb-20 bg-gradient-to-r from-indigo-900 to-purple-900 py-6 shadow-lg">
                             <div className="container mx-auto text-center ">
                                 <h1 className="text-4xl font-bold tracking-wide">
-                                    Icon Generater
+                                    my Icon
                                 </h1>
                             </div>
                         </header>
