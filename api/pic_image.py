@@ -36,8 +36,8 @@ def pixel_art(img,alpha=2,K=4):
     return img
 # sub_color(img,K)
 
-img = cv2.imread("api/c.jpg")
+# img = cv2.imread("api/c.jpg")
 
-dst = pixel_art(img,0.5,4)
-
-cv2.imwrite("api/temp.jpg",dst)
+# dst = pixel_art(img,0.5,4)
+# ['2025-01-18T07:59:05Z']
+# cv2.imwrite("api/temp.jpg",dst)
