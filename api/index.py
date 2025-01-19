@@ -2,17 +2,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from openai import OpenAI
 import openai
+from openai import OpenAI
 
 import json
 import os
-import requests
-from dotenv import load_dotenv
+
 from urllib.parse import urlparse, parse_qs
+import requests
 
 app = FastAPI()
-
 
 origins = [
     "http://localhost:5173",
@@ -29,10 +28,6 @@ app.add_middleware(
 
 class Prompt(BaseModel):
     prompt: str
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
 
 @app.post("/generate")
 async def create_icon(prompt: Prompt):
