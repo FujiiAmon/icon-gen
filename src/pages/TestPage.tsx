@@ -38,6 +38,9 @@ const TestPage: React.FC = () => {
     const [imageURL, setImageURL] = React.useState<string | undefined>(
         undefined
     );
+    const [imagePath, setImagePath] = React.useState<string | undefined>(
+        undefined
+    );
 
     const [currentImage, setCurrentImage] = useState<string>(sampleImages[0]);
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -64,7 +67,7 @@ const TestPage: React.FC = () => {
                     console.log(data);
                 });
         } catch (error) {
-            console.error(error);
+            console.error("failed to generate image", error);
             setLoading(false);
         } finally {
             // setGenerated(true);
@@ -82,8 +85,12 @@ const TestPage: React.FC = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ url: imageURL }),
-        }).then((res) => {
+        }).
+        then((res) => res.json()).
+        then((res) => {
             console.log(res);
+            console.log("path", res.path);
+            setImagePath(res.path); // public/xxx.png
         });
     }, [imageURL]);
 
@@ -223,9 +230,10 @@ const TestPage: React.FC = () => {
                                 </div>
 
                                 <div className="flex gap-2">
-                                    <DownloadButton
+                                    {/* <DownloadButton
                                         src={Images[currentImageIndex]}
-                                    />
+                                    /> */}
+                                    <DownloadButton src={imagePath!}/>
                                     <EditButton
                                         src={Images[currentImageIndex]}
                                         onClick={() => {}}

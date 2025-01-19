@@ -1,16 +1,16 @@
 import React from "react";
 
 // テスト用の画像URL
+
 const sampleURL = "https://images.unsplash.com/photo-1606814893907-c2e42943c91f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg";
 const sampleURL2 = "https://oaidalleapiprodscus.blob.core.windows.net/private/org-jmuLTnCHURAEXVY1VByta3oE/user-l4chAGXPSMWW0R0qnGlk3lmI/img-EoUFd7T6bI0AmtWgiEiNSDSg.png?st=2025-01-19T02%3A20%3A33Z&se=2025-01-19T04%3A20%3A33Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-01-18T12%3A28%3A52Z&ske=2025-01-19T12%3A28%3A52Z&sks=b&skv=2024-08-04&sig=A2wj93%2BvYS2ziE/yrFELLiff%2Bza4sf9wLweSw/98wJI%3D";
+
 // FastAPIのサーバーから静的ファイルの提供を行うURL
 const staticFileURL = "http://127.0.0.1:8000/static/uploads/sample.png";
 
-
-
 type DownloadButtonProps = {
-    src: string
-}
+    src: string;
+};
 
 // DownloadButton src={sampleURL}
 const DownloadButton: React.FC<DownloadButtonProps> = ({src}) => {
@@ -56,7 +56,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({src}) => {
 
 
     return (
-      <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-violet-600 to-blue-600 text-white rounded-full hover:bg-blue-600 active:scale-105 active:bg-blue-700 transition duration-100" onClick={() => downloadFile2(src)}>
+      <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-violet-600 to-blue-600 text-white rounded-full hover:bg-blue-600 active:scale-105 active:bg-blue-700 transition duration-100" onClick={() => downloadFile(src)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
@@ -73,8 +73,8 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({src}) => {
         </svg>
         <span>Download</span>
       </button>
-    );
-  };
 
+    );
+};
 
 export default DownloadButton;
