@@ -58,7 +58,7 @@ class URL(BaseModel):
 async def download_file(URL: URL):
     url = URL.url
     parsed_url = urlparse(url)
-    name = parse_qs(parsed_url.query)["st"][0]
+    name = parse_qs(parsed_url.query)["st"][0].replace(":", "")
     save_dir = f"./public/{name}.png"
 
     os.makedirs(os.path.dirname(save_dir), exist_ok=True)
