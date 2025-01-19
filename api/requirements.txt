@@ -13,7 +13,9 @@ httpx==0.28.1
 idna==3.10
 jiter==0.8.2
 marshmallow==3.25.1
+numpy==2.2.2
 openai==1.59.8
+opencv-python==4.11.0.86
 packaging==24.2
 pydantic==2.10.0
 pydantic_core==2.27.0
