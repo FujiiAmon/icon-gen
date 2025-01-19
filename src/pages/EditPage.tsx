@@ -13,6 +13,7 @@ type EditPageProps = {
 // 型定義したほうがいいかも
 const sizes = ["256", "512", "1024"]
 const shapeTypes = ["circle", "rectangle"]
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 
@@ -20,6 +21,7 @@ const EditPage: React.FC<EditPageProps> = ({defaultSrc}) => {
     // 何も編集していない状態の画像
     const location = useLocation();
     const src = location.state ? location.state.src: "";
+
     const [imageUrl, setImageUrl] = useState<string>(src)
     // currentImageUrlを更新することで、編集した画像をプレビューする
     const [currentImageUrl, setCurrentImageUrl] = useState<string>(src)
@@ -36,7 +38,25 @@ const EditPage: React.FC<EditPageProps> = ({defaultSrc}) => {
     }
 
     const handleGrayScaleEffect = async () => {
-        // api request
+        try{
+            const response = await fetch(API_URL + "/gray", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ image :imageUrl }),
+            })
+
+            if(!response.ok){
+                throw new Error("Failed to edit for grayscale effect");
+            }
+
+            // const data = await response.json();
+            // setCurrentImageUrl(data.url);
+
+        }catch(error){
+            console.log("Failed to fetch the file", error);
+        }
     }
 
     const handleDotEffect = async () => {
@@ -77,7 +97,9 @@ const EditPage: React.FC<EditPageProps> = ({defaultSrc}) => {
     
             {/* Example Edit Controls */}
             <div className="space-y-6 mt-4">
-
+                <div>
+                    <Button name="GrayScale" onClick={handleGrayScaleEffect}></Button>
+                </div>
                 
 
                 {/* Saturation Control */}
