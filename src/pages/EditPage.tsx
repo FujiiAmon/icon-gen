@@ -13,9 +13,6 @@ type EditPageProps = {
 const sizes = ["256", "512", "1024"];
 const shapeTypes = ["circle", "rectangle"];
 const API_URL = import.meta.env.VITE_API_URL;
-
-const API_URL = import.meta.env.VITE_API_URL as string;
-
 const EditPage: React.FC<EditPageProps> = ({ defaultSrc }) => {
     // 何も編集していない状態の画像
     const location = useLocation();
