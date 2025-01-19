@@ -1,20 +1,19 @@
-
-
-import React, { useEffect, useState } from 'react';
+import React from "react";
 
 type TypewriterTextProps = {
     text: string;
 };
 
 const TypewriterText: React.FC<TypewriterTextProps> = ({ text }) => {
-    
-
     return (
-        <h1 className="relative w-[max-content] font-mono
+        <h1
+            className="relative w-[max-content] font-mono
         before:absolute before:inset-0 before:bg-white
         before:animate-typewriter
-        ">{text}</h1>);
+        ">
+            {text}
+        </h1>
+    );
 };
-
 
 export default TypewriterText;
