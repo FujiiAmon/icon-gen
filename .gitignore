@@ -25,4 +25,6 @@ dist-ssr
 *.sw?
 
 .env
-api/*
+*/api.json
+*/api_key.json
+venv
