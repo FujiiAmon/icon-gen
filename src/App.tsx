@@ -11,8 +11,8 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path="/icon-gen" element={<TestPage />} />
-                <Route path="/edit" element={<EditPage />} />
+                <Route path="/icon-gen/" element={<TestPage />} />
+                <Route path="/edit/" element={<EditPage />} />
                 {/* <TestPage/> */}
             </Routes>
 
