@@ -7,7 +7,8 @@ import DownloadButton from "./DownloadButton";
 import RankingPage from "./RankingPage";
 import EditButton from "./EditButton";
 
-const sampleImages: string[] = ["https://images.unsplash.com/photo-1708738743926-4e2413fd4258?q=80&w=1744&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+const sampleImages: string[] = [
+    "https://images.unsplash.com/photo-1708738743926-4e2413fd4258?q=80&w=1744&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1471488738053-f147befc0689?q=80&w=1712&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1504697200476-72afc388a101?q=80&w=1744&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -19,12 +20,9 @@ const sampleImages: string[] = ["https://images.unsplash.com/photo-1708738743926
     "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1539613119332-934546db1e0e?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1539613119332-934546db1e0e?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-
-]
+];
 
 const API_URL = import.meta.env.VITE_API_URL;
-const sampleURL =
-    "https://images.unsplash.com/photo-1708738743926-4e2413fd4258?q=80&w=1744&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 
 const TestPage: React.FC = () => {
     const inputRef = useRef<HTMLDivElement>(null);
@@ -42,7 +40,6 @@ const TestPage: React.FC = () => {
         undefined
     );
 
-    const [currentImage, setCurrentImage] = useState<string>(sampleImages[0]);
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
     const [Images, setImages] = useState<string[]>(sampleImages);
@@ -85,13 +82,13 @@ const TestPage: React.FC = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ url: imageURL }),
-        }).
-        then((res) => res.json()).
-        then((res) => {
-            console.log(res);
-            console.log("path", res.path);
-            setImagePath(res.path); // public/xxx.png
-        });
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                console.log("path", res.path);
+                setImagePath(res.path); // public/xxx.png
+            });
     }, [imageURL]);
 
     const handleScroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
@@ -111,13 +108,6 @@ const TestPage: React.FC = () => {
                 ...prevImages,
                 Images[currentImageIndex - 2],
             ]);
-        }
-    };
-
-    // 受け取ったrefの位置に自動スクロールする関数
-    const scrollToNext = (ref: React.RefObject<HTMLDivElement>) => {
-        if (ref.current) {
-            ref.current.scrollIntoView({ behavior: "smooth" });
         }
     };
 
@@ -150,7 +140,7 @@ const TestPage: React.FC = () => {
                         <header className="mb-20 bg-gradient-to-r from-indigo-900 to-purple-900 py-6 shadow-lg">
                             <div className="container mx-auto text-center ">
                                 <h1 className="text-4xl font-bold tracking-wide">
-                                    my Icon
+                                    Studicon
                                 </h1>
                             </div>
                         </header>
@@ -233,7 +223,7 @@ const TestPage: React.FC = () => {
                                     {/* <DownloadButton
                                         src={Images[currentImageIndex]}
                                     /> */}
-                                    <DownloadButton src={imagePath!}/>
+                                    <DownloadButton src={imagePath!} />
                                     <EditButton
                                         src={Images[currentImageIndex]}
                                         onClick={() => {}}

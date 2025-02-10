@@ -12,7 +12,7 @@ function App() {
         <>
             <Routes>
                 <Route path="/icon-gen" element={<TestPage />} />
-                <Route path="/icon-gen/edit" element={<EditPage />} />
+                <Route path="/edit" element={<EditPage />} />
                 {/* <TestPage/> */}
             </Routes>
 

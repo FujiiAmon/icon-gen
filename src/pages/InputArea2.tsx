@@ -1,20 +1,18 @@
-import React, {useState} from "react";
-import Button from "./Button";
+import React, { useState } from "react";
 
 type InputAreaProps = {
     question: string;
     onChange: (text: string) => void;
-}
+};
 
-const InputArea2: React.FC<InputAreaProps> = ({question, onChange}) => {
-
+const InputArea2: React.FC<InputAreaProps> = ({ question, onChange }) => {
     const [inputText, setInputText] = useState<string>("");
 
-    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const changedText = e.target.value;
-        setInputText(changedText)
+        setInputText(changedText);
         onChange(changedText);
-    }
+    };
 
     return (
         <div className="space-y-4 w-full">
@@ -26,9 +24,8 @@ const InputArea2: React.FC<InputAreaProps> = ({question, onChange}) => {
                 value={inputText}
                 onChange={(e) => handleChange(e)}
             />
-            
         </div>
     );
-}
+};
 
 export default InputArea2;
