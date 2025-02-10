@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import DownloadButton from "./DownloadButton";
 import Button from "./Button";
-import IconWorld from "./Scatter";
 
 import { useLocation } from "react-router-dom";
 
@@ -13,18 +12,14 @@ type EditPageProps = {
 const sizes = ["256", "512", "1024"];
 const shapeTypes = ["circle", "rectangle"];
 
-const EditPage: React.FC<EditPageProps> = ({ defaultSrc }) => {
+const EditPage: React.FC<EditPageProps> = () => {
     // 何も編集していない状態の画像
     const location = useLocation();
     const src = location.state ? location.state.src : "";
-    const [imageUrl, setImageUrl] = useState<string>(src);
     // currentImageUrlを更新することで、編集した画像をプレビューする
     const [currentImageUrl, setCurrentImageUrl] = useState<string>(src);
     const [saturation, SetSaturation] = useState<number>(100);
-    const [selectedShapeType, setSelectedShapeType] =
-        useState<string>("circle");
     const [selectedSize, setSelectedSize] = useState<string>("1024×1024");
-    const [idDot, setIsDot] = useState<boolean>(false);
 
     const handleSaturationChange = async (
         e: React.ChangeEvent<HTMLInputElement>
@@ -35,35 +30,23 @@ const EditPage: React.FC<EditPageProps> = ({ defaultSrc }) => {
         // api request
     };
 
-    const handleGrayScaleEffect = async () => {
-        // api request
-    };
-
-    const handleDotEffect = async () => {
-        // api request
-    };
-
     const handleSizeChange = async (size: string) => {
         setSelectedSize(size);
 
         // api request
     };
 
-    const handleCropChange = async () => {
-        // api request
-    };
-
     const handleResetButtonClick = async () => {
-        setCurrentImageUrl(imageUrl);
+        setCurrentImageUrl(src);
     };
 
     return (
         <div className="grid grid-cols-2 gap-4 p-4">
             {/* Left Side: Image Preview */}
             <div className="flex justify-center items-center bg-gray-200 rounded-lg">
-                {imageUrl ? (
+                {src ? (
                     <img
-                        src={imageUrl}
+                        src={src}
                         alt="Selected"
                         className="max-w-full max-h-full"
                     />
@@ -160,7 +143,7 @@ const EditPage: React.FC<EditPageProps> = ({ defaultSrc }) => {
                                 type="checkbox"
                                 value=""
                                 className="sr-only peer "
-                                onChange={() => setIsDot((isDot) => !isDot)}
+                                // onChange={() => setIsDot((isDot) => !isDot)}
                             />
                             <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </label>
